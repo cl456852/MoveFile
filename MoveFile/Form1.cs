@@ -174,14 +174,14 @@ namespace MoveFile
         {
             init();
             DirectoryInfo TheFolder = new DirectoryInfo("d:\\utorrentFinish");
-            bool isPicFolder=true;
+            bool isPicFolder;
             foreach (DirectoryInfo NextFolder in TheFolder.GetDirectories("*",SearchOption.TopDirectoryOnly))
             {
-                
+                isPicFolder = true;
                 FileInfo[] fileInfos = NextFolder.GetFiles("*", SearchOption.AllDirectories);
                 foreach(FileInfo fileInfo in fileInfos)
                 {
-                    if (fileInfo.Length / 1024 / 2024 > 60)
+                    if (fileInfo.Length / 1024 / 2024 > 25)
                     {
                         isPicFolder = false;
                         break;
