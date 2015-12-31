@@ -22,12 +22,17 @@ namespace MoveFile
         ArrayList list;
         ArrayList moveList;
         ArrayList moveList1;
-        
-        private void Insert_Click(object sender, EventArgs e)
+
+        void init()
         {
             moveList1 = new ArrayList();
             moveList = new ArrayList();
-           list = new ArrayList();
+            list = new ArrayList();
+        }
+        
+        private void Insert_Click(object sender, EventArgs e)
+        {
+            init();
             totalLength = 0;
             list.Add("D:\\THUNDER20150108");
             list.Add("D:\\QQDownload");
@@ -163,6 +168,37 @@ namespace MoveFile
             BDict torrentFile = BencodingUtils.DecodeFile(torrentPath) as BDict;
 
             return ((BString)((torrentFile["info"] as BDict)["name"])).Value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            init();
+            DirectoryInfo TheFolder = new DirectoryInfo("d:\\utorrentFinish");
+            bool isPicFolder=true;
+            foreach (DirectoryInfo NextFolder in TheFolder.GetDirectories("*",SearchOption.TopDirectoryOnly))
+            {
+                
+                FileInfo[] fileInfos = NextFolder.GetFiles("*", SearchOption.AllDirectories);
+                foreach(FileInfo fileInfo in fileInfos)
+                {
+                    if (fileInfo.Length / 1024 / 2024 > 60)
+                    {
+                        isPicFolder = false;
+                        break;
+                    }
+             
+                }
+                if(isPicFolder)
+                {
+                    moveList.Add(NextFolder);
+                 }
+                foreach(DirectoryInfo info in moveList)
+                {
+                    Directory.Move(info.FullName, Path.Combine("d:\\abcd\\pic", info.ToString()).ToString());
+                }
+            }
+            dataGridView1.DataSource = moveList;
+            dataGridView1.Refresh();
         }
     }
 

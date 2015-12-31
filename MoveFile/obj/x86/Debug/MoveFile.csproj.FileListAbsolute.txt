@@ -39,3 +39,14 @@ D:\document\new\work\MoveFile\MoveFile\bin\Debug\BencodeLibrary.dll
 D:\document\new\work\MoveFile\MoveFile\bin\Debug\BencodeLibrary.pdb
 D:\document\new\work\MoveFile\MoveFile\obj\x86\Debug\MoveFile.csprojResolveAssemblyReference.cache
 D:\document\new\work\MoveFile\MoveFile\obj\x86\Debug\MoveFile.csproj.GenerateResource.Cache
+C:\code\MoveFile\MoveFile\bin\Debug\MoveFile.exe.config
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.exe
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.pdb
+C:\code\MoveFile\MoveFile\bin\Debug\MoveFile.exe
+C:\code\MoveFile\MoveFile\bin\Debug\MoveFile.pdb
+C:\code\MoveFile\MoveFile\bin\Debug\BencodeLibrary.dll
+C:\code\MoveFile\MoveFile\bin\Debug\BencodeLibrary.pdb
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.csprojResolveAssemblyReference.cache
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.Form1.resources
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.Properties.Resources.resources
+C:\code\MoveFile\MoveFile\obj\x86\Debug\MoveFile.csproj.GenerateResource.Cache
