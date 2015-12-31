@@ -192,10 +192,11 @@ namespace MoveFile
                 {
                     moveList.Add(NextFolder);
                  }
-                foreach(DirectoryInfo info in moveList)
-                {
-                    Directory.Move(info.FullName, Path.Combine("d:\\abcd\\pic", info.ToString()).ToString());
-                }
+           
+            }
+            foreach (DirectoryInfo info in moveList)
+            {
+                Directory.Move(info.FullName, Path.Combine("d:\\abcd\\pic", info.ToString()).ToString());
             }
             dataGridView1.DataSource = moveList;
             dataGridView1.Refresh();
