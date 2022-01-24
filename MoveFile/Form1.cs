@@ -37,16 +37,15 @@ namespace MoveFile
             list.Add("Z:\\迅雷下载");
             list.Add("E:\\tdDownloadAdmin");
             list.Add("E:\\dlA");
-            list.Add("Z:\\tdDownloadd1");
+            list.Add("F:\\迅雷下载");
             //list.Add("E:\\utorrentDownload");
             //list.Add("E:\\utorrentRemote");
             tdDownloadList.AddRange(list);
             tdDownloadList.Add("e:\\abcd");
             tdDownloadList.Add("d:\\abcd");
-            tdDownloadList.Add("E:\\新建文件夹 (2)");
-            tdDownloadList.Add("I:\\98");
-            tdDownloadList.Add("J:\\99");
-            tdDownloadList.Add("Z:\\abcd");
+            tdDownloadList.Add("f:\\abcd");
+            tdDownloadList.Add("F:\\迅雷下载");
+            tdDownloadList.Add("G:\\121\\20220120");
             list.Add("Z:\\tdDownloadd1");
 
         }
@@ -362,7 +361,8 @@ namespace MoveFile
                         string letter = "";
                         string number = "";
                         bool isEndofLetter = false;
-                        for (int i = 0; i < vid.Length; i++)                        //修改   对于出现KIDM235A  KIDM235B
+                        for (int i = 0; i < vid.Length; i++)      
+                                //修改   对于出现KIDM235A  KIDM235B
                             if (reg1.IsMatch(vid[i].ToString()))
                             {
                                 if (isEndofLetter)
@@ -374,6 +374,11 @@ namespace MoveFile
                             {
                                 number += vid[i];
                                 isEndofLetter = true;
+                            }
+                        if(number.StartsWith("00")&&number.Length>=5)
+                            {
+                                number = number.Substring(2);
+                                vid = letter + number;
                             }
                         if (letter.ToUpper().EndsWith("VR") || letter.ToUpper().EndsWith("VS"))
                             continue;
@@ -448,7 +453,6 @@ namespace MoveFile
                     number += id[i];
                     isEndofLetter = true;
                 }
-
             string str = "C:\\Progra~1\\Everything\\Everything.exe -search \"" + letter + " " + number + "\"";
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = "cmd.exe";
