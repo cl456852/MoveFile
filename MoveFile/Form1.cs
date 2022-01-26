@@ -44,7 +44,6 @@ namespace MoveFile
             tdDownloadList.Add("e:\\abcd");
             tdDownloadList.Add("d:\\abcd");
             tdDownloadList.Add("f:\\abcd");
-            tdDownloadList.Add("F:\\迅雷下载");
             tdDownloadList.Add("G:\\121\\20220120");
             list.Add("Z:\\tdDownloadd1");
 
@@ -327,12 +326,13 @@ namespace MoveFile
             dataGridView1.Refresh();
         }
 
-        Dictionary<string, ArrayList> dic = new Dictionary<string, ArrayList>();
-        Regex idRegex1 = new Regex("[A-Z]{1,}-[0-9]{1,}|[A-Z]{1,}[0-9]{1,}|[A-Z]{1,}‐[0-9]{1,}");
-        ArrayList resultList = new ArrayList();
-        ArrayList arrayList = new ArrayList() { "-1.", "-2.", "-3.", "-4.", "-5.", "-6.", "-7.", "-8.", "A.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "-A-", "-B-", "-C-", "-D-", "-E-", "-F-", "-G-", "-H-","_1.", "_2.", "_3.", "_4.", "_5.", "_6.", "_7.", "_8.", "_9." };
+        
         private void button3_Click(object sender, EventArgs e)
         {
+            Dictionary<string, ArrayList> dic = new Dictionary<string, ArrayList>();
+            Regex idRegex1 = new Regex("[A-Z]{1,}-[0-9]{1,}|[A-Z]{1,}[0-9]{1,}|[A-Z]{1,}‐[0-9]{1,}");
+            ArrayList resultList = new ArrayList();
+            ArrayList arrayList = new ArrayList() { "-1.", "-2.", "-3.", "-4.", "-5.", "-6.", "-7.", "-8.", "A.", "C.", "D.", "E.", "F.", "G.", "H.", "I.", "-A-", "-B-", "-C-", "-D-", "-E-", "-F-", "-G-", "-H-", "_1.", "_2.", "_3.", "_4.", "_5.", "_6.", "_7.", "_8.", "_9." };
             foreach (string path in tdDownloadList)
             {
                 DirectoryInfo TheFolder = new DirectoryInfo(path);
@@ -399,6 +399,8 @@ namespace MoveFile
             {
                 if ( item.Value.Count > 1)
                 {
+                    if (!checkIdValid(item.Value))
+                        continue;
                     string path="";
                     bool isValid = false;
                     foreach (FileInfo fileInfo in item.Value)
@@ -432,6 +434,38 @@ namespace MoveFile
             dataGridView2.DataSource = resultList;
             dataGridView2.Refresh();
         }
+
+        /**
+         * 对于同一部分文件问题
+         */
+        private bool checkIdValid(ArrayList fileInfos)
+        {
+            for(int i=0;i<fileInfos.Count-1;i++)
+            {
+                FileInfo fileInfo = (FileInfo)fileInfos[i];
+                FileInfo fileInfo1 = (FileInfo)fileInfos[i + 1];
+                string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+                string name1 = Path.GetFileNameWithoutExtension(fileInfo1.Name);
+                name = name.Substring(0, name.Length - 1);
+                name1 = name1.Substring(0, name1.Length - 1);
+                if ( name!=name1)
+                {
+                    return true;
+                }
+                
+            }
+            for(int i=0;i<fileInfos.Count-1;i++)
+                for(int j=i+1;j<fileInfos.Count;j++)
+                {
+                    if(((FileInfo) fileInfos[i]).Name== ((FileInfo)fileInfos[j]).Name)
+                    {
+                        return true;
+                    }
+                }
+            return false;
+        }
+
+
         Regex reg1 = new Regex("[A-Z]");
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
