@@ -45,7 +45,6 @@ namespace MoveFile
             tdDownloadList.Add("d:\\abcd");
             tdDownloadList.Add("f:\\abcd");
             tdDownloadList.Add("G:\\121\\20220120");
-            list.Add("Z:\\tdDownloadd1");
 
         }
 
@@ -346,17 +345,17 @@ namespace MoveFile
                             if (fileInfo.Length / 1024 / 1024 > 60)
                         {
                             string fileName = Path.GetFileName(fileInfo.Name.ToUpper());
-                            bool ifContinue = false;
-                            foreach (string term in arrayList)
-                            {
-                                if (fileName.Contains(term))
-                                {
-                                    Console.WriteLine(fileName);
-                                    ifContinue = true;
-                                    break;
-                                }
-                            }
-                            if (ifContinue) continue;
+                            //bool ifContinue = false;
+                            //foreach (string term in arrayList)
+                            //{
+                            //    if (fileName.Contains(term))
+                            //    {
+                            //        Console.WriteLine(fileName);
+                            //        ifContinue = true;
+                            //        break;
+                            //    }
+                            //}
+                            //if (ifContinue) continue;
                             string vid = idRegex1.Match(Path.GetFileNameWithoutExtension(fileInfo.Name.ToUpper().Replace("U15XX.",""))).Value.Replace("-", "").Replace("_", "");
                         string letter = "";
                         string number = "";
@@ -399,7 +398,7 @@ namespace MoveFile
             {
                 if ( item.Value.Count > 1)
                 {
-                    if (!checkIdValid(item.Value))
+                    if (!checkIdValid(item.Value)|| !checkIdValid2(item.Value))
                         continue;
                     string path="";
                     bool isValid = false;
@@ -435,6 +434,20 @@ namespace MoveFile
             dataGridView2.Refresh();
         }
 
+        private bool checkIdValid2(ArrayList fileInfos)
+        {
+            for (int i = 0; i < fileInfos.Count - 1; i++)
+                
+            {
+                string dir1 = ((FileInfo)fileInfos[i]).DirectoryName;
+                string dir2 = ((FileInfo)fileInfos[i + 1]).DirectoryName;
+                if ( dir1!= dir2||tdDownloadList.Contains(dir1)||tdDownloadList.Contains(dir2))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         /**
          * 对于同一部分文件问题
          */
@@ -444,8 +457,8 @@ namespace MoveFile
             {
                 FileInfo fileInfo = (FileInfo)fileInfos[i];
                 FileInfo fileInfo1 = (FileInfo)fileInfos[i + 1];
-                string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
-                string name1 = Path.GetFileNameWithoutExtension(fileInfo1.Name);
+                string name = Path.GetFileNameWithoutExtension(fileInfo.Name.Replace(".bt.xltd",""));
+                string name1 = Path.GetFileNameWithoutExtension(fileInfo1.Name.Replace(".bt.xltd", ""));
                 name = name.Substring(0, name.Length - 1);
                 name1 = name1.Substring(0, name1.Length - 1);
                 if ( name!=name1)
@@ -457,7 +470,7 @@ namespace MoveFile
             for(int i=0;i<fileInfos.Count-1;i++)
                 for(int j=i+1;j<fileInfos.Count;j++)
                 {
-                    if(((FileInfo) fileInfos[i]).Name== ((FileInfo)fileInfos[j]).Name)
+                    if(((FileInfo) fileInfos[i]).Name.Replace(".bt.xltd", "") == ((FileInfo)fileInfos[j]).Name.Replace(".bt.xltd", ""))
                     {
                         return true;
                     }
@@ -499,8 +512,11 @@ namespace MoveFile
             p.StandardInput.WriteLine(str + "&exit");
 
             p.StandardInput.AutoFlush = true;
-
-            Clipboard.SetText(letter + " " + number);
+            try
+            {
+                Clipboard.SetText(letter + " " + number);
+            }
+            catch { }
         }
     }
 
