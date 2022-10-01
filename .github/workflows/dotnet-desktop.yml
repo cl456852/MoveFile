@@ -69,4 +69,4 @@ jobs:
 
 
     # A comma separated list of analyzer tools to run. Example bandit, binskim, eslint, template-analyzer, terrascan, trivy.
-        tools: bandit
+        tools: binskim
